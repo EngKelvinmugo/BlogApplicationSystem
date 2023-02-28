@@ -1,0 +1,41 @@
+{% load static %}
+<html>
+    <head>
+        <title>
+            Techvidvan Blog Application
+        </title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <link rel="stylesheet" href=" {% static '/css/main.css' %} ">
+    </head>
+    <body>
+        {% block content %} 
+        <div class="container">
+            <a href="{% url 'addblog' %}" class='btn btn-primary'>Add Blog</a>
+            <br>
+        {%for b in blogs %}  
+        <br>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card" style="width: 22rem;">
+                        <img src="{{b.Image.url}}" class="card-img-top" alt="">
+                        <div class="card-body">
+                        <h5 class="card-title">{{b.title}}</h5>
+                        <p class="card-text">{{b.description}}</p>
+                        <form action='{%  url 'like' b.id %}' method=POST>
+                            {% csrf_token %}
+                            <button type='submit' class='btn btn-success'>{{b.likes}} Like</button>
+                        </form>
+                        <p class="card-text">Published on: {{b.date}}</p>                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <br>
+        {% endfor %}
+        </div>
+        {% endblock %}
+    </body>
+    <script>
+
+    </script>
+    
